@@ -7,15 +7,15 @@
 </h2>
 
 
-- 👋 Hi, I’m @yui-mhcp
+- 👋 Hi, I’m @yui-mhcp ! :yum:
 - 👀 I’m interested in practical usage of Artificial Intelligence (and more specifically Deep Learning)
 - 🌱 I’m currently learning Computer Sciences
-- 💞️ I’m looking to collaborate on Deep-Learning projects on TTS, Q&A or other funny topics ! :smile:
-- 📫 You can ping me if you have question or send me an email if you want to collaborate on a new project :smile:
+- 💞️ I’m looking to collaborate on Deep Learning projects on TTS, Q&A or other funny topics ! :smile:
+- 📫 You can ping me if you have question or send me an email / Discord message if you want to collaborate on a new project :smile:
 
-The objective of this project is to propose many utilities to create, train, monitor and experiment models / architectures by tracking all configuration for reproducibility / comparison. 
+The objective of this github is to propose many utilities to create, train, monitor and experiment models / architectures by tracking all configuration for reproducibility / comparison. 
 
-Note that many of projects / models already exist on GitHub (and some of my projects are highly inspired of some of them). The idea is to centralize all different topics and provide abstract class\* / utilities to facilitate development of new models, training, testing and deployment. 
+Note that many projects / models already exist on GitHub (and some of my projects are highly inspired of some of them). The idea is to centralize all different topics and provide abstract class\* / utilities to facilitate development, training, testing and deployment of new models. 
 
 \* The core of all projects is the `BaseModel` class described in [this project](https://github.com/yui-mhcp/base_dl_project) which is the base of all other projects.
 
@@ -29,7 +29,9 @@ Currently handled topics :
 - [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Speech-To-Text (STT)](https://github.com/yui-mhcp/speech_to_text)
 - [x] [Generative Adversarial Networks (GAN)](https://github.com/yui-mhcp/generation)
+- [ ] Natural Language Processing (NLP) : Masked Language Modeling (MLM)
 - [ ] Natural Language Processing (NLP) : Question-Answering (Q&A)
+- [ ] Natural Language Processing (NLP) : Text Generation
 - [ ] Natural Language Processing (NLP) : Translation
 - [ ] Reinforcment Learning (RL) for single-player games
 - [ ] Reinforcment Learning (RL) for adversarial games
@@ -42,7 +44,7 @@ Additional utilities :
 - [x] [Image processing](https://github.com/yui-mhcp/data_processing)
 - [x] [Text processing](https://github.com/yui-mhcp/data_processing)
 
-All projects are in separate repositories so that it will be easier to contribute to a particular topic without carrying about other projects
+All topics are in separate repositories so that it is easier to contribute to a particular topic without carrying about other projects
 
 
 ## Objectives and applications
@@ -60,7 +62,7 @@ If you have ideas of usage / interesting application but do not have time / expe
 
 ### Available applications
 
-No application yet, do not hesitate to contact me :smile:
+- [Ezcast with STT](https://github.com/yui-mhcp/ezcast) : video player with additional `Speech-To-Text (STT)` support allowing to search for word in videos !
 
 ### Application ideas
 
