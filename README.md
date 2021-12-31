@@ -13,9 +13,11 @@
 - 💞️ I’m looking to collaborate on Deep Learning projects on TTS, Q&A or other funny topics ! :smile:
 - 📫 You can ping me if you have question or send me an email / Discord message if you want to collaborate on a new project :smile:
 
+:yum: **I have added 2 generated audios to wish you all the best for this new year !** :yum:
+
 The objective of this github is to propose many utilities to create, train, monitor and experiment models / architectures by tracking all configuration for reproducibility / comparison. 
 
-Note that many projects / models already exist on GitHub (and some of my projects are highly inspired of some of them). The idea is to centralize all different topics and provide abstract class\* / utilities to facilitate development, training, testing and deployment of new models. 
+Note that many projects / models already exist on GitHub (and some of my projects are highly inspired of some of them). The idea is to centralize all different topics and provide abstract class\* / utilities to facilitate development, training, testing and deployment of (new) models. 
 
 \* The core of all projects is the `BaseModel` class described in [this project](https://github.com/yui-mhcp/base_dl_project) which is the base of all other projects.
 
@@ -25,10 +27,10 @@ Currently handled topics :
 - [x] [Image classification](https://github.com/yui-mhcp/base_dl_project)
 - [x] [Object detection](https://github.com/yui-mhcp/detection)
 - [x] [Siamese networks](https://github.com/yui-mhcp/siamese_networks)
-- [x] [Speaker Verification (SV)](https://github.com/yui-mhcp/siamese_networks)
-- [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Speech-To-Text (STT)](https://github.com/yui-mhcp/speech_to_text)
+- [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Generative Adversarial Networks (GAN)](https://github.com/yui-mhcp/generation)
+- [ ] [Object segmentation](https://github.com/yui-mhcp/detection)
 - [ ] Natural Language Processing (NLP) : Masked Language Modeling (MLM)
 - [ ] Natural Language Processing (NLP) : Question-Answering (Q&A)
 - [ ] Natural Language Processing (NLP) : Text Generation
@@ -52,21 +54,27 @@ All topics are in separate repositories so that it is easier to contribute to a 
 The main objective of this github is to democratize Deep Learning to facilitate its usage in **real-world projects**
 
 The main idea is to **centralize many Deep Learning topics** to facilitate their learning. 
-Furthermore, for each repository, I will try to put some **tutorial links** in order to give you some good tutorials to start this topic and learn theorical aspects of them (which can be quite hard for some of them :smile: ).  
+Furthermore, for each repository, I will try to put some **tutorial / references links** in order to give you some good tools to start this topic and learn theorical aspects of them (which can be quite hard to find for some of them :smile: ).  
 
-I will also develop some applications with these repositories and will try to make them open-source as well (and always with free version) to give example of powerful, funny and helpful usage of DeepLearning even without big computational power !
+I will also develop some applications / features with these repositories and will try to make them open-source as well (and always with free version) to give example of powerful, funny and helpful usage of Deep Learning even without big computational power !
 
 If you create useful / funny concrete application with one of these project (or without), please contact me so I can reference them here ! :smile: It can give it more visibility and show example of real-world usage of Deep Learning methods 
 
-If you have ideas of usage / interesting application but do not have time / experience to do it, you can also contact me to add them and see if someone can help you to develop it
+If you have ideas of usage / interesting application but do not have time / experience to develop it, you can also contact me to add them and see if someone can help you to develop it
+
+### Available features
+
+- [x] [Speaker Verification (SV)](https://github.com/yui-mhcp/siamese_networks)
+- [x] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text).
+- [x] [Text-To-Speech logger](https://github.com/yui-mhcp/text_to_speech) : `logging`-based logger that converts your logs to speech.
 
 ### Available applications
 
-- [Ezcast with STT](https://github.com/yui-mhcp/ezcast) : video player with additional `Speech-To-Text (STT)` support allowing to search for word in videos !
+- [Ezcast with STT](https://github.com/yui-mhcp/ezcast) : video player with additional `Speech-To-Text (STT)` support allowing to search text in videos !
 
-### Application ideas
+### Application / features ideas
 
-No shared idea yet, do not hesitate to contact me :smile:
+- [Face recognition](https://github.com/yui-mhcp/siamese_networks)
 
 ## Contacts and licence
 
