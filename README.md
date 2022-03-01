@@ -24,17 +24,17 @@ Note that many projects / models already exist on GitHub (and some of my project
 ## Type of projects
 
 Currently handled topics : 
-- [x] [Image classification](https://github.com/yui-mhcp/base_dl_project)
+- [x] [Image classification](https://github.com/yui-mhcp/base_dl_project) \*
 - [x] [Object detection](https://github.com/yui-mhcp/detection)
 - [x] [Siamese networks](https://github.com/yui-mhcp/siamese_networks)
 - [x] [Speech-To-Text (STT)](https://github.com/yui-mhcp/speech_to_text)
 - [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Generative Adversarial Networks (GAN)](https://github.com/yui-mhcp/generation)
-- [ ] [Object segmentation](https://github.com/yui-mhcp/detection)
-- [ ] Natural Language Processing (NLP) : Masked Language Modeling (MLM)
-- [ ] Natural Language Processing (NLP) : Question-Answering (Q&A)
-- [ ] Natural Language Processing (NLP) : Text Generation
-- [ ] Natural Language Processing (NLP) : Translation
+- [ ] [Object segmentation](https://github.com/yui-mhcp/detection) \*\*
+- [ ] Natural Language Processing (NLP) : Masked Language Modeling (MLM) \*\*
+- [ ] Natural Language Processing (NLP) : Question-Answering (Q&A) \*\*
+- [ ] Natural Language Processing (NLP) : Text Generation \*\*
+- [ ] Natural Language Processing (NLP) : Translation \*\*
 - [ ] Reinforcment Learning (RL) for single-player games
 - [ ] Reinforcment Learning (RL) for adversarial games
 
@@ -48,6 +48,9 @@ Additional utilities :
 
 All topics are in separate repositories so that it is easier to contribute to a particular topic without carrying about other projects
 
+\* It is a demonstration code to show how to subclass `BaseModel`. I will add a dedicated repository later for general classification (text / image / ...). 
+
+\*\* These projects are available [here](https://github.com/Ananas120/mag) and are developped for a Master thesis' project (about Q&A). Once the thesis is finished, and with the authorization of his author, I will continue to maintin it on this github, and extend it to a more general text-generation framework. Big thanks to him for extending the project ! :smile:
 
 ## Objectives and applications
 
@@ -83,9 +86,13 @@ You can contact [me](https://github.com/yui-mhcp) at yui-mhcp@tutanota.com or on
 The objective of these projects is to facilitate the development and deployment of useful application using Deep Learning for solving real-world problems and helping people. 
 For this purpose, all the code is under the [Affero GPL (AGPL) v3 licence](LICENCE)
 
-Furthermore, you **cannot** use any of these projects for commercial purpose without my permission. You can use, modify, distribute and use any of my projects for production as long as you respect the terms of the [licence](LICENCE) and use it for non-commercial purposes (i.e. free applications / research). 
+All my projects are "free software", meaning that you can use, modify, deploy and distribute them on a free basis, in compliance with the Licence. They are not in the public domain and are copyrighted, there exist some conditions on the distribution but their objective is to make sure that everyone is able to use and share any modified version of these projects. 
 
-If you use this project in your work, please cite this project to give it more visibility ! :smile:
+Furthermore, if you want to use any project in a closed-source project, or in a commercial project, you will need to obtain another Licence. Please contact me for more information. 
+
+For my protection, it is important to note that all projects are available on an "As Is" basis, without any warranties or conditions of any kind, either explicit or implied. However, do not hesitate to report issues on the repository's project or make a Pull Request to solve it :smile: 
+
+If you use this project in your work, please add this citation to give it more visibility ! :yum:
 
 ```
 @misc{yui-mhcp
@@ -96,3 +103,7 @@ If you use this project in your work, please cite this project to give it more v
     howpublished    = {\url{https://github.com/yui-mhcp}}
 }
 ```
+
+## Acknowledgments
+
+Thanks to @Ananas120 for his contribution and sharing his implementation of `Transformers` architectures !
