@@ -13,7 +13,6 @@
 - 💞️ I’m looking to collaborate on Deep Learning projects on TTS, Q&A or other funny topics ! :smile:
 - 📫 You can ping me if you have question or send me an email / Discord message if you want to collaborate on a new project :smile:
 
-:yum: **I have added 2 generated audios to wish you all the best for this new year !** :yum:
 
 The objective of this github is to propose many utilities to create, train, monitor and experiment models / architectures by tracking all configuration for reproducibility / comparison. 
 
@@ -30,7 +29,7 @@ Currently handled topics :
 - [x] [Speech-To-Text (STT)](https://github.com/yui-mhcp/speech_to_text)
 - [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Generative Adversarial Networks (GAN)](https://github.com/yui-mhcp/generation)
-- [ ] [Object segmentation](https://github.com/yui-mhcp/detection) \*\*
+- [ ] [Object segmentation](https://github.com/yui-mhcp/detection)
 - [ ] Natural Language Processing (NLP) : Masked Language Modeling (MLM) \*\*
 - [ ] Natural Language Processing (NLP) : Question-Answering (Q&A) \*\*
 - [ ] Natural Language Processing (NLP) : Text Generation \*\*
@@ -50,7 +49,7 @@ All topics are in separate repositories so that it is easier to contribute to a 
 
 \* It is a demonstration code to show how to subclass `BaseModel`. I will add a dedicated repository later for general classification (text / image / ...). 
 
-\*\* These projects are available [here](https://github.com/Ananas120/mag) and are developped for a Master thesis' project (about Q&A). Once the thesis is finished, and with the authorization of his author, I will continue to maintin it on this github, and extend it to a more general text-generation framework. Big thanks to him for extending the project ! :smile:
+\*\* These projects are available [here](https://github.com/Ananas120/mag) and are developped for a Master thesis' project (about Q&A). Once the thesis is finished, and with the authorization of his author, I will continue to maintin it on this github, and extend it to a more general text-generation framework. Big thanks to him for extending this github to NLP ! :smile:
 
 ## Objectives and applications
 
