@@ -30,10 +30,10 @@ Currently handled topics :
 - [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Generative Adversarial Networks (GAN)](https://github.com/yui-mhcp/generation)
 - [ ] [Object segmentation](https://github.com/yui-mhcp/detection)
-- [ ] Natural Language Processing (NLP) : Masked Language Modeling (MLM) \*\*
-- [ ] Natural Language Processing (NLP) : Question-Answering (Q&A) \*\*
-- [ ] Natural Language Processing (NLP) : Text Generation \*\*
-- [ ] Natural Language Processing (NLP) : Translation \*\*
+- [ ] [Natural Language Processing (NLP) : Masked Language Modeling (MLM)](https://github.com/yui-mhcp/nlp)
+- [x] [Natural Language Processing (NLP) : Question-Answering (Q&A)](https://github.com/yui-mhcp/nlp)
+- [ ] [Natural Language Processing (NLP) : Text Generation](https://github.com/yui-mhcp/nlp)
+- [ ] [Natural Language Processing (NLP) : Translation](https://github.com/yui-mhcp/nlp)
 - [ ] Reinforcment Learning (RL) for single-player games
 - [ ] Reinforcment Learning (RL) for adversarial games
 
@@ -44,12 +44,11 @@ Additional utilities :
 - [x] [Audio processing](https://github.com/yui-mhcp/data_processing)
 - [x] [Image processing](https://github.com/yui-mhcp/data_processing)
 - [x] [Text processing](https://github.com/yui-mhcp/data_processing)
+- [x] [Multi-threading framework](https://github.com/yui-mhcp/data_processing)
 
 All topics are in separate repositories so that it is easier to contribute to a particular topic without carrying about other projects
 
 \* It is a demonstration code to show how to subclass `BaseModel`. I will add a dedicated repository later for general classification (text / image / ...). 
-
-\*\* These projects are available [here](https://github.com/Ananas120/mag) and are developped for a Master thesis' project (about Q&A). Once the thesis is finished, and with the authorization of his author, I will continue to maintin it on this github, and extend it to a more general text-generation framework. Big thanks to him for extending this github to NLP ! :smile:
 
 ## Objectives and applications
 
@@ -67,16 +66,16 @@ If you have ideas of usage / interesting application but do not have time / expe
 ### Available features
 
 - [x] [Speaker Verification (SV)](https://github.com/yui-mhcp/siamese_networks)
-- [x] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text).
-- [x] [Text-To-Speech logger](https://github.com/yui-mhcp/text_to_speech) : `logging`-based logger that converts your logs to speech.
+- [ ] [Face Recognition](https://github.com/yui-mhcp/siamese_networks) : the code is available but the model is not performant enough yet
+- [x] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text)
+- [x] [Live transcription / subtitle generation](https://github.com/yui-mhcp/speech_to_text) : some models tend to be accurate enough for transcription but they will be further improved
+- [x] [Text-To-Speech logger](https://github.com/yui-mhcp/text_to_speech) : `logging`-based logger that reads your logs with `TTS` models
 
 ### Available applications
 
 - [Ezcast with STT](https://github.com/yui-mhcp/ezcast) : video player with additional `Speech-To-Text (STT)` support allowing to search text in videos !
 
 ### Application / features ideas
-
-- [Face recognition](https://github.com/yui-mhcp/siamese_networks)
 
 ## Contacts and licence
 
@@ -105,4 +104,4 @@ If you use this project in your work, please add this citation to give it more v
 
 ## Acknowledgments
 
-Thanks to @Ananas120 for his contribution and sharing his implementation of `Transformers` architectures !
+Thanks to @Ananas120 for his contribution and sharing his implementation of `Transformers` architectures + his master thesis' code about Q&A !
