@@ -4,6 +4,28 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
+## Update 01/05/2023
+
+### Main updates
+
+**WARNING** Some projects have been refactored, and the signatures of the prediction methods may have changed. It may be useful to check them if any error occurs in your custom code ;) The remaining projects will be refactored in the future updates, it is therefore possible that some features are temporaly not supported.
+
+- (**Experimental**) New model for Scene-Text Detection : [EAST](https://github.com/yui-mhcp/detection) (+ `U-Net` architecture and `Dice` loss + rotated bounding boxes).
+- Refactoring / optimization of the [Text-To-Speech](https://github.com/yui-mhcp/text_to_speech) prediction pipeline + simplification of the `Vocoder`.
+- Refactoring / optimization of the [object detection](https://github.com/yui-mhcp/detection) prediction pipeline.
+- Refactoring / optimization of the [image captioning](https://github.com/yui-mhcp/image_captioning) prediction pipeline.
+- Better API for the [image captioning](https://github.com/yui-mhcp/image_captioning) via the new `make_caption` method.
+- Refactoring / cleaning of the [Siamese Networks](https://github.com/yui-mhcp/siamese_networks) main class.
+- Support for 3D plots.
+
+## Bugs fixed
+
+- [TTS project](https://github.com/yui-mhcp/text_to_speech) : the `get_audio_file` is now able to get the audio file associated to a non-cleaned text, by passing the model used to generate it. The function cleans the text by loading the model's `TextEncoder`, and finally matches the cleaned text.
+
+## Distance features
+
+- The `knn` function and `KNN` class supports string ids.
+- The `tf_distance` now supports the `max_matrix_size` in `tensorflow graph` mode.
 
 ## Update 01/02/2023
 
