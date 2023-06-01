@@ -4,6 +4,36 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
+## Update 01/06/2023
+
+### Main updates
+
+**IMPORTANT NOTE** : the `requirements.txt` have been cleaned up in all the projects to remove some *heavy but rarely used* dependancies. It is therefore possible that some specific functions raise errors (especially for model convertions that may require `pytorch` or `transformers`). Nevertheless, this may not be an issue in most of the usages, and is easily solvable by `pip install` it ! ;)
+
+- The `EAST Scene-Text Detector` has been modified to support the version of [this repo](https://github.com/SakuraRiven/EAST), which has powerful pretrained model published ! The training procedure is however not supported yet (but not necessary to be used).
+- The [Speech-To-Text Whisper](https://github.com/yui-mhcp/speech_to_text) has been refactored to be equivalent to [the official OpenAI's repo](https://github.com/openai/whisper) ! It supports all the multilingual versions (i.e. base, medium, large, ...). The ".en" versions have not been fully tested yet (especially the tokenizer).
+- The `Transformers` architectures now correctly support the `mixed_precision` or `float16` !
+- The coding style of some models is improved to better support the methods from the interfaces. The major benefit is that the code is more clear, simpler, and the docstrings / signatures from `get_image` are properly shown when using `help(model.get_input)`, which was not the case before.
+```python
+class ImageModel(BaseImageModel):
+    # new style
+    get_input = BaseImageModel.get_image
+    
+    # old style
+    def get_input(self, data, ** kwargs):
+        return self.get_image(data, ** kwargs)
+```
+
+## Image features
+
+- New `rotate_image` method, to rotate the image in pure tensorflow (the code is highly inspired from the `RandomRotate` layer). 
+- New `random_rotate` and `random_resize` image augmentation methods
+- New `get_image_augmentation_config` method that returns all supported kwargs (with default values) for image augmentation methods (useful to track these default configuration in the training hparams).
+- Support for `bbox` kwarg in the `load_image` method (in graph mode).
+- New `get_image_with_box` method in the `BaseImageModel`, that can use the `bbox` argument of `load_image` if the data contains a `box` key. This is not done by default as the `YOLO` model aims to detect the box, so the `box` field is for the output and has to be ignored for the input processing.
+- New support for `target_max_shape` and `target_multiple_shape` in `resize_image` and `load_image` methods (see their documentation for details). 
+- New `{down / up}sampling_factor` in the `BaseImageModel`, allowing to get information on the downsampling / upsampling facotrs of the model (useful to determine the `target_multiple_shape` for UNet-like models with variable input size). Check the `EAST` model for an example usage.
+
 ## Update 01/05/2023
 
 ### Main updates
