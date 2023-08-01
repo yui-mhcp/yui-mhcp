@@ -3,37 +3,38 @@
 </h2>
 
 <h2 aligne = "center">
-<p> A Deep Learning projects centralization </p>
+<p> A centralization of Deep Learning projects </p>
 </h2>
 
 
 - 👋 Hi, I’m @yui-mhcp ! :yum:
 - 👀 I’m interested in practical usage of Artificial Intelligence (and more specifically Deep Learning)
 - 🌱 I’m currently learning Computer Sciences
-- 💞️ I’m looking to collaborate on Deep Learning projects on TTS, Q&A or other funny topics ! :smile:
-- 📫 You can ping me if you have question or send me an email / Discord message if you want to collaborate on a new project :smile:
+- 💞️ I’m looking to collaborate on Deep Learning projects on TTS, STT, NLP or any other funny topic ! :smile:
+- 📫 You can ping me if you have any question, or send me an email / Discord message if you want to collaborate on a new project :smile:
 
 
 The objective of this github is to propose many utilities to create, train, monitor and experiment models / architectures by tracking all configuration for reproducibility / comparison. 
 
-Note that many projects / models already exist on GitHub (and some of my projects are highly inspired of some of them). The idea is to centralize all different topics and provide abstract class\* / utilities to facilitate development, training, testing and deployment of (new) models. 
+Note that many projects / models already exist on GitHub (and some of my projects are highly inspired of some of them). The idea is to centralize all different topics, and provide abstract class\* / utilities to facilitate development, training, testing and deployment of (new) models. The major objective and benefit of such centralization and standardization is to allow an easy combination of multiple topics to create fancy applications !
 
 \* The core of all projects is the `BaseModel` class described in [this project](https://github.com/yui-mhcp/base_dl_project) which is the base of all other projects.
 
 ## Type of projects
 
-Currently handled topics : 
+Currently developped topics : 
 - [x] [Image classification](https://github.com/yui-mhcp/base_dl_project) \*
 - [x] [Object detection](https://github.com/yui-mhcp/detection)
 - [x] [Siamese networks](https://github.com/yui-mhcp/siamese_networks)
 - [x] [Speech-To-Text (STT)](https://github.com/yui-mhcp/speech_to_text)
 - [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 - [x] [Generative Adversarial Networks (GAN)](https://github.com/yui-mhcp/generation)
-- [ ] [Object segmentation](https://github.com/yui-mhcp/detection)
+- [x] [Object segmentation](https://github.com/yui-mhcp/detection)
 - [ ] [Natural Language Processing (NLP) : Masked Language Modeling (MLM)](https://github.com/yui-mhcp/nlp)
 - [x] [Natural Language Processing (NLP) : Question-Answering (Q&A)](https://github.com/yui-mhcp/nlp)
 - [ ] [Natural Language Processing (NLP) : Text Generation](https://github.com/yui-mhcp/nlp)
 - [ ] [Natural Language Processing (NLP) : Translation](https://github.com/yui-mhcp/nlp)
+- [x] [Optical Character Recognition (OCR)](https://github.com/yui-mhcp/ocr)
 - [ ] Reinforcment Learning (RL) for single-player games
 - [ ] Reinforcment Learning (RL) for adversarial games
 
@@ -70,10 +71,9 @@ If you have ideas of usage / interesting application but do not have time / expe
 - [x] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text)
 - [x] [Live transcription / subtitle generation](https://github.com/yui-mhcp/speech_to_text) : some models tend to be accurate enough for transcription but they will be further improved
 - [x] [Text-To-Speech logger](https://github.com/yui-mhcp/text_to_speech) : `logging`-based logger that reads your logs with `TTS` models
+- [x] [Optical Character Recognition (OCR)](https://github.com/yui-mhcp/ocr) : this projects allows to detect text in an image, and performs OCR on the detected text
 
 ### Available applications
-
-- [Ezcast with STT](https://github.com/yui-mhcp/ezcast) : video player with additional `Speech-To-Text (STT)` support allowing to search text in videos !
 
 ### Application / features ideas
 

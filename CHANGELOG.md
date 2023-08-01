@@ -4,6 +4,46 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
+## Update 01/08/2023
+
+### Main updates
+
+- **[NEW](https://github.com/yui-mhcp/ocr)** Optical Character Recognition (OCR) project !
+- Refactoring of the `utils.image.box_utils` module to a `directory` with much more features !
+- **Experimental** support for long-text reading with the `Text-To-Speech (TTS)` models, which gives much better results for paragraph reading !
+- Better `decorators` usage (especially the `timer` decorator, and datasets loadings) with the `functools.wraps` ! This allows to have a better `help` support for all decorated methods
+- Some functions become numpy-friendly : instead of executing everything in pure tensorflow, some functions now adapt their internal functions to either call tensorflow, either numpy functions, depending on the input types. This feature is currently mainly supported in the `box_utils` module, but will be extended for performance critical operations !
+```python
+# Example : this function comes from `utils/distance/distance_method.py`, and simply expand dimensions of the input to perform matrix-based distance
+# In this case, if the input is a `np.ndarray`, the function calls the `np.expand_dims`, avoiding a convertion to `tf.Tensor`, which may be unefficiant if not expected
+# Note that this function is still graph-compatible ;)
+def _maybe_expand_for_matrix(x, y, as_matrix = False):
+    if isinstance(x, tf.Tensor):
+        rank_fn, expand_fn = lambda t: len(tf.shape(t)), tf.expand_dims
+    else:
+        rank_fn, expand_fn = lambda t: t.ndim, np.expand_dims
+    
+    if as_matrix and rank_fn(x) == rank_fn(y):
+        y = expand_fn(y, axis = -3)
+    
+    if rank_fn(x) == rank_fn(y) - 1:
+        x = expand_fn(x, axis = -2)
+
+    return x, y
+
+```
+
+## Image features
+
+- Modification of the `BaseImageModel` to support image resizing configuration in a more flexible way (cf `resize_config` params + modification in the `get_image` method for variable input size support)
+- Refactoring of the `box_utils` module, especially the `get_box_pos` (which supported 3 box formats) has been replaced by the `convert_box_format` that handles more `BoxFormat`, and now supports the `tensorflow graph` mode !
+- New padding methods supported (used in the `OCR` project)
+- Implementation of the `Locality Aware NMS` for the `EAST` Scene-Text Detection model
+
+## Text features
+
+- The `text_decoder` module has been removed (because it was never used), and replaced by the `ctc_decoder` module, giving a better interface to `CTC`-decoding. Consequently, the `TextEncoder` has a new `ctc_decode` function
+
 ## Update 01/06/2023
 
 ### Main updates
