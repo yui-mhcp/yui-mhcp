@@ -4,6 +4,75 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
+Tensorflow / OS versions tested :
+- `tensorflow2.10` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
+- `tensorflow2.13` on `Debian 11.7` with `CUDA 11.8` and `CuDNN 8.6`
+
+## Update 01/11/2023
+
+### Major new features
+
+- **NEW** `utils/tensorflow_utils` module that provides many useful features and functions for tensorflow. It notably provides 2 `decorator` :
+    - `tf_compile` : an equivalent to `tf.function` with a custom re-implementation of the `experimental_follow_type_hints` parameter, which has been removed from `tensorflow 2.11` and higher
+    - `execute_eagerly` : an equivalent to the new `tf.numpy_function` decorator added in `tensorflow 2.14` with shape setting (via `tf.ensure_shape`), which is quite useful after calling `tf.{num}py_function` ;)
+- **NEW** `utils/wrapper_utils` module that provides custom `decorator`s for better documentation and customization ! The 2 most powerful ones are :
+    - `dispatch_wrapper` : enables to make a function customizable by automatically adding and documenting sub-functions (check `utils/file_utils` or `utils/distance/distance_method` for concrete example use cases)
+    - `partial`     : this decorator acts similarly to `functools.partial` with 2 major advantages. 1) it supports class methods, and 2) it copies the function `__doc__`
+
+```python
+_loading_fn = {}
+
+@dispatch_wrapper(_loading_fn, 'Filename extension')
+def load_data(filename):
+    return _lading_fn[filename.split('.')[-1]](filename)
+
+@load_data.dispatch
+def load_npy(filename):
+    return np.load(filename)
+
+load_data.dispatch(pd.read_csv, 'csv')
+load_data.dispatch(partial(pd.read_csv, sep = '\t'), 'tsv')
+
+data = load_data('test_numpy.npy')  # works
+data = load_data('test_pandas.csv') # also works
+data = load_data('test_pandas.tsv') # also works
+data = load_data('test_dict.json')  # will fail with a KeyError
+help(load_data) # displays the signature of `load_npy` and `pd.read_csv` with their associated extension inf `_loading_fn` !
+```
+- **NEW** `unitests` testing scripts fully integrated with the `unittest` standard library ! Simply run `python3 -m unittest discover unitests -v` to ensure correcness of the installation ! :yum:
+
+### Main updates
+
+- Cleaning (+ documentation) of the `utils/image` and `utils/audio` modules
+- `tf_read_audio` has been removed as it is useless, thanks to the new `execute_eagerly` decorator (`read_audio` is now transparently callable inside `tf.function`)
+- `get_cleaners_fn` has been moved to `utils/text/cleaners` with some code cleaning + new cleaners
+- Image normalization schemes have been moved from `models/interfaces/base_image_model` to `utils/image/image_normalization` for code cleaning and simplification
+- `utils/stream_utils` now contains functions relative to streaming / iterator, such as the `create_iterator` function
+- The `TextEncoder.encode` is now transparently callable inside `tf.function`, which makes `BaseTextModel.tf_encode_text` deprecated, and will be removed in the next update (now simply calls `BaseTextModel.encode_text` ;) 
+- The `load_data` now supports image and audio loading (which was not the case due to circular imports) --> the code should also be a bit faster to import !
+
+### Loggers features
+
+- The `loggers` module is now completely independant from the `utils` module !
+- The `time_to_string` now displays micro-seconds in case of execution time smaller than 1ms
+- The `logging.{start / stop}_timer` is now usable
+- The `time_logger` is now directly importable from `loggers` (e.g., `from loggers import time_logger`)
+- When adding a new level (e.g., `add_level('DEV', 11)`), the level's name is callable both from `logging` (`logging.dev(msg)`) and from the `Logger` class (`logging.getLogger().dev(msg)`)
+
+### Audio features
+
+- New `play_audio` function which directly calls `sounddevice.play` in a separate thread, which seems more stable than the previous callback-based method
+- New `resample_audio` method (originally coded inside `read_audio`)
+
+### Image features
+
+- Fix bug in the `get_resized_shape` when `keep_aspect_ratio = True`
+- New experimental `custom_cameras` module that enables streaming phone / tablet screen though the `stream_camera` method
+
+### Text features
+
+- new cleaner for `regex` patterns replacements (`replace_patterns`) in addition to the existing word-based replacement (`replace_words`)
+
 ## Update 01/08/2023
 
 ### Main updates
