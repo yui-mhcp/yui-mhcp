@@ -8,6 +8,45 @@ Tensorflow / OS versions tested :
 - `tensorflow2.10` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
 - `tensorflow2.13` on `Debian 11.7` with `CUDA 11.8` and `CuDNN 8.6`
 
+## Christmas update 25/12/2023
+
+**Merry Christmas to everyone !** 
+
+### Major updates
+
+- **NEW** The [T5](https://huggingface.co/docs/transformers/model_doc/t5) and the [Falcon](https://huggingface.co/docs/transformers/model_doc/falcon) architectures are now available in the [NLP](https://github.com/yui-mhcp/nlp) project !
+- The `BaseSTTModel` has been updated to correctly support the `Whisper` inference. Other models like `Jasper` now use a similar method, which is more suitable and clean than the previous method !
+- The `execute_eagerly` is now usable on class methods
+- The `TextEncoder` directly implements the `multi_{encode / format / split / ...}` methods, which were originally implemented in the `BaseTextModel`
+- The new `copy_methods` decorator has enabled a big cleaning of the `BaseTextModel` by removing all *forwarding methods* (e.g., `encode_text` which is a direct call to `self.text_encoder.encode`)
+- A new context `timer` is added, enabling time tracking via a `with` statement, instead of the `{start / stop}_timer` (cf [this notebook](https://github.com/yui-mhcp/data_processing/blob/master/example_generic.ipynb) for an example)
+- The custom layers in the `custom_layers` module are not dynamically loaded, meaning that you do not have to modify the `__init__.py` file to export your custom layer ! The same behavior will be implemented in other modules (e.g., `custom_train_objects` and `models`)
+- A new `generation_utils` module has been created to handle both `RNN` inference and `Transformers` inference at once with a unified and optimized generation loop ! Some features for the `Transformers` are not supported yet (notably returning the decoder self-attention), as the dimensions change accross steps. This will be solved in future updates, but you can go back to the old generation function if needed (by setting `from custom_architecture.transformers_arch.generation_utils import infer` instead in the `text_transformer_arch.py` file).
+
+### Bugs fixed
+
+- In the `ocr` module, the `stream_video` did not correctly forward kwargs to the `predict` method
+- The `execute_eagerly` decorator was not working on class methods
+- The `BoundingBox` was not correctly handled by some functions (such as `sort_boxes`)
+- The `filter_texts` (applied after each `multi_{...}` function of the `TextEncoder`) now correctly returns an empty result if the `required_idx` does not match the constraints
+- The `violinplot` is now correctly supported
+
+### Known issues
+
+Due to recent updates of `tensorflow` (version higher than 2.10), some behaviors may raise exceptions :
+- The `model_from_json` does not restore `Lambda` layers (this will not be an issue if the model is a custom class or if it does not contain any `Lambda` layers)
+- The `tf.keras.losses.*` have a new `fn` entry in their config, which raise an error when reloading them by calling their constructor (which is the current behavior in the `BaseModel`)
+
+The NLP project is currently refactored, some features are not available anymore, notably the `predict` method.
+
+These issues will be solved in the next (1st january) update :smile:
+
+### Plot features
+
+- The `violinplot` and the `boxplot` now support multi-color boxes / violins
+- The `bar` plot supports grouped bars (i.e. multiple bars per feature) ([see here](https://github.com/yui-mhcp/data_processing/blob/master/example_generic.ipynb) for an example)
+
+
 ## Update 01/11/2023
 
 ### Major new features
