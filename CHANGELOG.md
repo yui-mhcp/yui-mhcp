@@ -8,6 +8,25 @@ Tensorflow / OS versions tested :
 - `tensorflow2.10` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
 - `tensorflow2.13` on `Debian 11.7` with `CUDA 11.8` and `CuDNN 8.6`
 
+## New year update 01/01/2024
+
+**Happy new year !**
+
+## Main updates
+
+- The `custom_train_objects/{losses / metrics / optimizers}` have been updated such that custom losses / ... are automatically loaded, avoiding redundant modifications in the `__init__` file ! This is still experimental so please open an issue if it raise an error ;)
+- A new `utils.distance.text_distance_method` module have been created to replace the previous `utils.text.f1`. The module comes with a new decorator dedicated to `str`-based distance methods, and manually computes matrix-bassed computation (i.e. compute the distance between all pairs)
+- New `unitests` for the `custom_train_objects` module !
+- The `utils.thread_utils` has been cleaned to fully remove the `Pipeline` mechanism. A simplified yet more efficiant and safe version of the `Producer` and `Consumer` are still available / used
+
+## Bugs fixed
+
+- The losses and metrics are now correctly deserialized with the official `tensorflow.keras.{metrics / losses}.deserialize` method, solving previous errors
+- The `tf.keras.optimizers.legacy.*` are now correctly handled in model restoration (only relevant for `tensorflow > 2.10`)
+- Minor bug in `box_functions` solved
+- Minor bug in `vlines / hlines` plot solved
+
+
 ## Christmas update 25/12/2023
 
 **Merry Christmas to everyone !** 
