@@ -8,6 +8,72 @@ Tensorflow / OS versions tested :
 - `tensorflow2.10` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
 - `tensorflow2.13` on `Debian 11.7` with `CUDA 11.8` and `CuDNN 8.6`
 
+## Update 01/02/2024
+
+### Major updates
+
+- The `Transformer` inference methods are now compatible with the [XLA](https://www.tensorflow.org/xla) optimization ! This enables the function to run more than 2 times faster compared to regular graph-mode compilation, and around 10 times faster than eager mode ! The main limitation is that the compilation time is much slower for the 1st call, which is important to take into account
+- The custom `tf_compile` decorator progressively replaces the regular `tf.function` decorator in  the code in order to reduce retracing as much as possible, while enabling to easily run thee function with/without XLA or in eager mode (see below for more details)
+- The `TextTransformer.{sos / eos / pad}_token` are now `tf.constant` instead of `tf.Variable` to be compatible with `XLA` (see below)
+- The `utils/text/bpe.py` has been renamed `utils/text/byte_pair_encoding.py`
+
+## Bugs fixed
+
+- The `color` argument is correctly handled in the `plot` function when passing a `dict` of data
+- The `CLIP` and `YOLO` architectures have been modified to remove the `Lambda` layers, which raise exception at restoration time
+- The `Whisper` tokenizer is now correctly loaded from the `transformers` library using the `openai/whisper-base` tokenizer
+- The `Whisper.filter_logits` function has been moved outside of the class to make it an instance variable, to avoid retracing of the inference method. 
+
+## Some information about XLA and graph mode
+
+These information are based on experimental observations, and comes in addition to the [official tensorflow tutorial](https://www.tensorflow.org/api_docs/python/tf/function) about `tf.function`. I highly recommand you to read the tutorial to better understand the following issues and proposed solutions ;)
+
+1) Re-implementation of `experimental_follow_type_hints`, and the `cast_defaults` feature :
+
+In `tensorflow > 2.10`, the `experimental_follow_type_hints` has been removed, causing multiple retracing when passing regular python objects (`int / float`) as kwargs. 
+
+In the below example, the `show1` function raises 2 retracing in `tensorflow==2.10`, and 5 in higher versions. The `follow_type_hints` enables to mimic the reproduce the `2.10` behavior in newer versions, and causes 2 retracing : 1 for the call with the default argument `fn()`, and 1 for the 1st call with an int `fn(i)`. The 1st retracing is interesting because the default value `2` is not casted, as it is not passed as arg / kwarg to the function ! The `cast_defaults` feature solves this limitation by casting unprovided kwargs with an annotation.
+
+With this feature enabled, the `show2` call only retraces once at the 1st call !
+
+```python
+@tf.function(experimental_follow_type_hints = False)
+def show1(n : tf.Tensor = 2):
+    print('Retracing with {}'.format(n))
+    return n ** 2
+
+@tensorflow_utils.tf_compile(follow_type_hints = True, cast_defaults = True)
+def show2(n : tf.Tensor = 2):
+    print('Retracing with {}'.format(n))
+    return n ** 2
+
+for fn in (show1, show2):
+    print('{}\nTest with {}\n{}'.format('=' * 50, fn.__name__, '=' * 50))
+    fn()
+    for i in range(5): fn(i)
+```
+The `cast_kwargs` argument enables to force casting kwargs that are not`bool / str / callables` (e.g., `int / float`) to enable nested-casting. As an example, the `infer_beam_search` takes as config `num_beams`, which may be casted to `tf.Tensor`. Nonetheless, the `TextTransformer.infer` does not contain this argument, which is therefore not casted via the `follow_type_hints` kwarg, and may cause retracing
+
+
+2) Differences between the regular graph mode and the `XLA` graph mode
+
+The 1st known issue in tensorflow XLA, is that `int32 tf.Variable` are placed on `CPU`, while the XLA does not support reading from multiple devices (i.e. GPU vs CPU). This is the reasing why token variables in the `TextTransformer` class are now `tf.constant` (placed on `GPU`), and not `tf.Variable`
+
+The 2nd major restriction is that XLA does not support variable-length `Tensor` in a while-loop body, whereas in regular graph mode, it is supported provided the `shape_invariant` kwargs. The workaround, inspired from the `transformers` library, is to pre-compute a full-size tensor of zeros (of size `max_length`), and dynamically update slices using the `dynamic_update_slice` function of tensorflow XLA
+
+The last observation is the *bound methods* that always cause retracing. A *bound method* is an object instance method, which is not handled the same way as *functions* in case of retracing.
+
+As an example, in the case of `Whisper`, passing `self.filter_logits` to the `infer` method, will systematically cause retracing. A contrario, passing the `lambda` function returned by `get_filter` will not cause retracing in the subsequent calls, as the stored lambda function will be identified as *known* (same object) by the retracing procedure
+
+```python
+def filter_logits(self, scores, tokens, state, ** _):
+    to_remove = self.remove_tokens_with_space if state.state is None else self.remove_tokens
+    return timestamp_filter(self, scores, tokens[:, :state.t], to_remove, state)
+
+def get_filter(self):
+    return lambda * args, ** kwargs: filter_logits(self, * args, ** kwargs)
+```
+
 ## New year update 01/01/2024
 
 **Happy new year !**
