@@ -5,8 +5,32 @@ This file describes the different changes performed at each update ! This will a
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
 Tensorflow / OS versions tested :
-- `tensorflow2.10` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
-- `tensorflow2.13` on `Debian 11.7` with `CUDA 11.8` and `CuDNN 8.6`
+- `tensorflow 2.10` and `keras 3.0.5` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
+- `tensorflow 2.16` and `keras 3.0.5` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+
+## Update 01/04/2024
+
+**Only the [data processing](https://github.com/yui-mhcp/data_processing) repository has been updated with experimental keras-3 support**
+
+### Major updates
+
+- **The data processing module has been completely recoded to support the keras 3 multi-backend framework !**
+- The `utils/keras_utils` creates a convenient interface over keras-3 to add useful features for `tf.data` pipeline support in a backend-agnostic context (see [this notebook](https://github.com/yui-mhcp/data_processing/blob/master/example_custom_operations.ipynb) for more details)
+- The bounding box manipulation has been optimized and simplified
+- New unit testing methods have been added to better test the multi-backend support along with `tf.data` pipelines
+- The K-Means algorithm is now `XLA`-enabled
+
+### Known issues
+
+The project is at an early stage of multi-backend support ! These issues will be solved in next updates, along with the associated model code (which will also be re-implemented) :yum:
+
+- Some functions are not properly working with the JAX backend
+- These functions leverage a `tensorflow` function and are not fully backend agnostic yet :
+    - the CTC decoding methods
+    - The image augmentation methods
+    - The standard Non-Maximum Suppression (NMS)
+- Some image normalization leverage the `keras.applications` method, making them not usable in `tf.data` pipeline with non-tensorflow backend
+- The new `graph_compile` (replacing `tf_compile`) currently only supports `tf.function` compilation (other backends are executed eagerly)
 
 ## Update 01/02/2024
 
