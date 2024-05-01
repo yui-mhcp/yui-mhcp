@@ -5,8 +5,37 @@ This file describes the different changes performed at each update ! This will a
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
 Tensorflow / OS versions tested :
-- `tensorflow 2.10` and `keras 3.0.5` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
-- `tensorflow 2.16` and `keras 3.0.5` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+- `tensorflow 2.10` and `keras 3.3.0` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
+- `tensorflow 2.16` and `keras 3.3.0` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+
+## Update 01/05/2024
+
+Only the [data processing](https://github.com/yui-mhcp/data_processing) repository has been updated to enhance keras-3 support. The other projects are in progress ! :smile:
+
+### Major updates
+
+- The `graph_compile` now supports all backend compilation (`tf.function`, `torch.compile` and `jax.jit`) with atomatic detection of `static_argnames` for `JAX`
+- The `executing_eagerly` function can detect XLA execution in all backends (by using global variables + `with` statement)
+- The `is_tensorflow_graph` allows to differenciate between `tensorflow`-compiled function and `executing_eagerly` which is backend-agnostic
+- The `graph_compile` allows `tf.function` compilation regardless of the backend (useful for `tensorflow`-only operations, like `load_audio1`)
+- The `graph_compile` and `execute_eagerly` decorators are now unit-tested 
+- The `Locality Aware Non-Max-Suppression (LANMS)` is now working with all backends
+- `tensorflow` gpu utilities (such as gpu memory usage / memory limitation) are included in `keras_utils/gpu_utils.py`. Other backends will (µhopefullyµ) be supported in future updates if these features are available ;)
+- The `utils/thread_utils` has been renamed to `utils/threading`
+- The `utils/image/box_utils` has been renamed to `utils/image/bounding_box`
+- The `utils/image/bounding_box/geo_utils` has been replaced by a simplified version in `{...}/polygons.py`
+- All the `keras.applications.{model}.process_input` have been re-implemented to support `tf.data` regardless of the actual backend
+- `tensorflow` and `torch` pass all the unit-tests, and only 2 tests fail in `jax` (due to `XLA`-incompatibility) ! :smile:
+- [Work In Progress] The `tensorflow` library is not loaded by default when using other backends. This feature is still experimental and may not be perfectly working in all scenarios, feel free to open an issue ! The `utils/text` module still requires `tensorflow`
+- [Work In Progress] The `datasets` module (previously at the root of the directory) is moving to `utils/datasets`. This solves the `datasets` library from `huggingface` import. The dataset processing functions are moving to individual files to facilitate new dataset integration, and clarity of the code 
+
+### Known issues
+
+- The `utils/text` module still imports `tensorflow`
+- The `scores` argument in `nms` is currently not supported at all due to errors in `XLA` mode
+- The `lanms` is not properly workin in `jax.jit`
+- The `max_slice` argument in `distance` is not supported in `jax.jit`
+- The CTC decoding methods are only supported in `tensorflow`. `keras>=3.3` have compatible ctc decoding methods.
 
 ## Update 01/04/2024
 
