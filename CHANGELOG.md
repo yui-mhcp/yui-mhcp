@@ -5,8 +5,38 @@ This file describes the different changes performed at each update ! This will a
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
 Tensorflow / OS versions tested :
-- `tensorflow 2.10` and `keras 3.3.0` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
-- `tensorflow 2.16` and `keras 3.3.0` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+- `tensorflow 2.10` and `keras 3.3.3` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
+- `tensorflow 2.16` and `keras 3.3.3` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+
+## Update 01/06/2024
+
+The [data processing](https://github.com/yui-mhcp/data_processing), [base_dl_project](https://github.com/yui-mhcp/base_dl_project) and [detection](https://github.com/yui-mhcp/detection) projects have been updated.
+
+### Major updates
+
+- The `BaseModel` class has been completely refactored (as well as the other `interfaces`) to be compatible with Keras 3 !
+    - The `train` method has been removed in favor of the `fit` method
+    - A custom `LossWithMultipleOutputs` has been created to support custom losses providing additional metrics (e.g., the `YOLOLoss`)
+    - A new `CheckpointManager` has been designed to mimic the behavior of the previously used `tf.train.CheckpointManager`
+    - The `test` method has been removed, but the `evaluate` method has not been overriden yet
+    - The `compile` method has been simplified
+    - The model serialization now leverages the `keras.serialize_object`, and uses the `deserialize` version for model restoration
+    - The data processing pipeline methods have been updated to `prepare_{input / output}` rather than `encode_{input / output}`, and a new `process_batch_{input / output}` is now supported to specifically process batched data (the `map_before_batch` has therefore been removed)
+    - A new `_default_{loss / metrics / optimizer}` static variables have been added to reduce the need of overriding the `compile`
+- The `datasets` module has been moved to `utils/datasets`, as well as the `hparams` module, moved to `utils/hparams.py`
+- The `__init__.py` files in `custom_train_objects/{losses / metrics / optimizers / callbacks}`, as well as `custom_{architectures / layers}` have been modified to follow the same pattern. They now dynamically import custom losses / metrics / ..., without the need to modify these `__init__` files. 
+- The new `BaseModel.fit` is properly working with the 3 backends, while leveraging a fully optimized `tf.data` processing pipeline !
+- The `Transformers` blocks have been updated, and a working implementation of `Mistral` has been added ! Examples will come in the near future with the `nlp` repository keras 3 update :smile:
+- The `custom_layers/multi_head_attention` has been renamed `residual_multi_head_attention` to not confuse with the  `keras.layers.MultiHeadAttention` layer
+
+### Image features
+
+- New algorithms to combine bounding boxes are proposed. They use a connected-components algorithm to compute boxes to combine much faster and in a more reliable way than before
+- The `iou` module has been renamed `metrics` to be more generic
+
+### Text features
+
+- The `CTC decoding` methods now leverage the `keras.ctc_decode` function.
 
 ## Update 01/05/2024
 

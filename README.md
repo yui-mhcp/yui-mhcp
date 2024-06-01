@@ -9,7 +9,7 @@
 
 Welcome to my GitHub profile ! The objective of my projects is to make Deep Learning more accessible, and provide real-world examples to enhance education and research in the field ! :yum:
 
-The core mission here is to aggregate a wide range of Deep Learning topics in one place with a common abstraction, making it easier for you to dive into this fascinating field. Each repository not only focuses on a specific area of Deep Learning, but also includes links to tutorials and reference papers. These resources are carefully selected to help you grasp both the practical and theoretical aspects of Deep Learning, which can sometimes be challenging to find.
+The goal is to aggregate a wide range of Deep Learning topics in one place with a common abstraction, making it easier for you to dive into this fascinating field. Each repository not only focuses on a specific area of Deep Learning, but also includes links to tutorials and reference papers. These resources are carefully selected to help you grasp both the practical and theoretical aspects of Deep Learning, which can sometimes be challenging to find.
 
 ## Covered topics
 
