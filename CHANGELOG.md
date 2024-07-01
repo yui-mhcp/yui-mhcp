@@ -8,6 +8,17 @@ Tensorflow / OS versions tested :
 - `tensorflow 2.10` and `keras 3.3.3` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
 - `tensorflow 2.16` and `keras 3.3.3` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
 
+## Update 01/07/2024
+
+### Major updates
+
+- The [encoders](https://github.com/yui-mhcp/encoders) has been created to replace the [siamese_networks](https://github.com/yui-mhcp/siamese_networks). The latter will be removed once the updated will be fully completed !
+- The [Optical Caracter Recognition (OCR)](https://github.com/yui-mhcp/ocr) project has been updated to Keras 3 !
+- The [Text-to-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech) project has been updated to Keras 3 !
+- The [Speech-to-Text (STT)](https://github.com/yui-mhcp/speech_to_text) project has been updated to Keras 3 !
+- The `utils/threading` module has been refactored, and is now unit-tested
+- The `CheckpointManager` class, as well as the `weights_converter` scripts, are now able to convert `tf.saved_model` checkpoints into a `keras.Model` instance ! This enables automatic convertion of all previously trained / saved models !
+
 ## Update 01/06/2024
 
 The [data processing](https://github.com/yui-mhcp/data_processing), [base_dl_project](https://github.com/yui-mhcp/base_dl_project) and [detection](https://github.com/yui-mhcp/detection) projects have been updated.

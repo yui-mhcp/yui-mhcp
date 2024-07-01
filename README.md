@@ -39,7 +39,7 @@ Additional utilities :
 - [x] [Multi-threading framework](https://github.com/yui-mhcp/data_processing)
 
 Practical use cases :
-- [x] [Speaker Verification (SV)](https://github.com/yui-mhcp/siamese_networks)
+- [x] [Speaker Verification (SV)](https://github.com/yui-mhcp/encoders)
 - [ ] [Face Recognition](https://github.com/yui-mhcp/siamese_networks) : the code is available but the model is not performant enough yet
 - [x] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text)
 - [x] [Live transcription / subtitle generation](https://github.com/yui-mhcp/speech_to_text) : some models tend to be accurate enough for transcription but they will be further improved
