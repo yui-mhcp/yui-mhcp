@@ -5,19 +5,52 @@ This file describes the different changes performed at each update ! This will a
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
 Tensorflow / OS versions tested :
-- `tensorflow 2.10` and `keras 3.3.3` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
-- `tensorflow 2.16` and `keras 3.3.3` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+- `tensorflow 2.10` and `keras 3.4.1` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
+- `tensorflow 2.17` and `keras 3.4.1` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
 
 ## Update 01/07/2024
 
-### Major updates
+### Major update
 
-- The [encoders](https://github.com/yui-mhcp/encoders) has been created to replace the [siamese_networks](https://github.com/yui-mhcp/siamese_networks). The latter will be removed once the updated will be fully completed !
-- The [Optical Caracter Recognition (OCR)](https://github.com/yui-mhcp/ocr) project has been updated to Keras 3 !
-- The [Text-to-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech) project has been updated to Keras 3 !
-- The [Speech-to-Text (STT)](https://github.com/yui-mhcp/speech_to_text) project has been updated to Keras 3 !
-- The `utils/threading` module has been refactored, and is now unit-tested
-- The `CheckpointManager` class, as well as the `weights_converter` scripts, are now able to convert `tf.saved_model` checkpoints into a `keras.Model` instance ! This enables automatic convertion of all previously trained / saved models !
+- The `utils/keras_utils/ops` has been refactored to support **all** the `keras.ops` functions, and even some additional custom functions !
+- A `TextEncoder` model has been added for information retrieval in the [encoders](https://github.com/yui-mhcp/encoders) module !
+- The `utils/search` module has been created for [the new information retrieval](https://github.com/yui-mhcp/encoders) feature ! :smile:
+- The `euclidian_distance` and `dot_product` have been optimized using the `einsum` function ! This has enabled a **huge** memory saving and performance increase. If you are interested in the benchmarks, please open a discussion ! :smile:
+- The `get_pretrained_transformer` method automatically infers the class based on the `transformers` model, and downloads metadata file instead of instanciating the model
+- The `Transformers.from_pretrained` method has been abstracted to correctly build config / transfer weights for all the supported architectures !
+
+### Known issues
+
+- The `spectral_clustering` and `label_propagation` clustering methods seem to not work properly anymore.
+- The `spectral_clustering` is not working at all in `tf2.17.0`, due to an error with the `svd` method
+- The `pypdf`-based parsing method is not properly working, as some information on the text position are not provided by the library. It is recommanded to **not** use it currently
+
+### Bugs fixed
+
+- The `YOLO` class now correctly forwards the labels to the detected boxes
+- The `draw_boxes` and `show_boxes` now correctly displays the label
+- The `plot_embeddings` now properly supports `Tensor` ids
+- Fix minor bug in `SentencepieceEncoder` decoding method (the `offset` was not properly saved, which only impacted the `decode` method)
+
+### General features
+
+- All the `requirements` files have been updated
+- A new experimental `apply_on_batch` decorator has been created to abstract functions that iterate over batches
+- New `segment_*` operations support, allowing optimization in some functions, such as the `compute_centroids` method
+- The `{save / load}_embeddings` have been optimized, and the default embedding format is now `.h5`
+- The `.h5` file format is now properly supported to store nested `dict`
+
+### Image features
+
+- The `draw_boxes` method now displays the label over a background rectangle, enhancing readibility
+
+### Text features
+
+- The `pdf_parser` has been refactored to support multiple pdf extraction libraries, and the default has been switched to [pypdfium2](https://github.com/pypdfium2-team/pypdfium2) instead of [pdfminer.six](https://github.com/pdfminer/pdfminer.six), allowing a significant performance speed up
+- A new post-processing strategy has been designed for the `pypdfium2`-based pdf extraction, and will be generalized to `pypdf` and `pdfminer` parsers in the future
+- A new `pd_parser` has been added, designed to parse `.md` files
+- The `parse_document` method now accepts directories / file formats
+
 
 ## Update 01/06/2024
 
