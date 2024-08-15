@@ -8,6 +8,30 @@ Tensorflow / OS versions tested :
 - `tensorflow 2.10` and `keras 3.4.1` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
 - `tensorflow 2.17` and `keras 3.4.1` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
 
+## Update 15/07/2024
+
+### Major update
+
+- The [detection](https://github.com/yui-mhcp/detection) and [ocr](https://github.com/yui-mhcp/ocr) prediction and streaming methods have been cleaned up and optimized ! :smile:
+    - They now use the new `utils/callbacks` module that abstracts some common file saving / result display strategies
+    - They are based on the new `models/utils/prediction.py` module that abstracts data preparation for prediction. This has enabled some useful features such as directory / formatted files support for both `predict` methods
+    - The `stream` methods support fine-grained configuration to save raw stream, transformed stream, frames, ...
+
+This new abstraction is still experimental, and will be generalized to all other model classes in the near future !
+
+### Bugs fixed
+
+- The `Beam Search inference` is fixed (minor issue for long generations)
+- The `BaseOCR.stream` is now properly working
+- The `BaseDetector.predict` now correctly supports directories / formatted files
+- The `video_utils.copy_audio` now supports multiple calls in parallel
+- The `image_io.stream_camera` now correctly saves videos when the directory did not exist yet
+
+### Known issues
+
+- The `WaveGlow` keras checkpoint is missing in the [Text-to-Speech](https://github.com/yui-mhcp/text_to_speech) and will be added in the next update
+- The `models.tts.stream` method is not working anymore since keras 3 update. It will be solved in the next update
+
 ## Update 01/07/2024
 
 ### Major update
