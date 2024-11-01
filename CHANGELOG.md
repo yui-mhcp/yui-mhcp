@@ -4,9 +4,37 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
-Tensorflow / OS versions tested :
-- `tensorflow 2.10` and `keras 3.4.1` on `Windows10` with `CUDA 11.2` and `CuDNN 8.1`
-- `tensorflow 2.17` and `keras 3.4.1` on `Debian 11.7` with `CUDA 12.3` and `CuDNN 8.9`
+## Update 01/11/2024
+
+### Major update
+
+- **[NEW]** [Installation guide](INSTALLATION.md) that provides step-by-step instructions to install `tensorflow` and `TensorRT-LLM` in a `mamba` virtual environment, along with all the expected additional softwares !
+- **[NEW]** The `BaseModel` class now supports different build modes with `tf.saved_model` and `TensorRT-LLM` models (in addition to the regular `keras` model) ! This feature is experimental, and may have some limitations ;)
+- **[NEW]** A new project on [Language Models](https://github.com/yui-mhcp/language_models) is released with a first set of `Natural Language Understanding (NLU)` tasks, such as Machine Translation, Summarization, Text Reformulation, and more ! :yum:
+- A new [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) runtime wrapper is proposed in the new [Language Models](https://github.com/yui-mhcp/language_models) project ! This enables a highly optimized inference with most of the state-of-the art `Large Language Models (LLM)` ! :yum:
+- **[BREAKING CHANGE]** The `graph_compile` decorator now returns an object (`CompiledFunction`) that offers additional features, such as the `export` method to save it into a `tf.saved_model` format. This feature is experimental and may have some limitations ;)
+- **[EXPERIMENTAL]** A new `utils/search/web` module is released allowing to perform web-based search with multiple search engines ! However, some of them require additional tokens, so I was not able to test them all. 
+
+### Known issues
+
+- The `utils.clustering` module has some errors when executed in graph/XLA mode. 
+- The `WaveGlow` keras checkpoint is missing in the [Text-to-Speech](https://github.com/yui-mhcp/text_to_speech) and will be added in the next update
+- The `models.tts.stream` method is not working anymore since keras 3 update. It will be solved in the next update
+
+### General features
+
+- The `utils.keras_utils.ops` module is now version-independant and should be compatible with any version of `keras>3.0`
+- The `utils.keras_utils.compile` module is now a directory with additional features to load/export compiled functions to `tf.saved_model`
+- A new `utils.parser` file has been created to include all functions related to function inspection (these features were initially in `utils.generic_utils`)
+- `pandas` is now an optional dependency
+- **[BREAKING CHANGE]** The `{load / save}_embeddings` have been optimized with modifications in their name/signature
+
+### Text features
+
+- The `TextEncoder.format` and `TextEncoder.apply_template` both supports `f-string` and `jinja` formats
+- The `document_parser` module has been unified such that all parsing methods return similar structure
+- 
+
 
 ## Update 15/07/2024
 
