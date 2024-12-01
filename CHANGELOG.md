@@ -4,6 +4,33 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
+## Update 01/12/2024
+
+### Experimental features
+
+These features are **experimental** and will be improved in the future versions ! :smile:
+- The `utils.search.vectors` module has been refactored and optimized.
+- The `BaseVectorsDB` now supports saving/loading to `.h5` file
+- The `models.nlu.TextGenerator.rag` method now supports vectors database caching
+- The `models.encoders.TextEncoder` class has a new `predict` method, wrapping the `embed` one, which now allows to save/load vector databases.
+- A new `models.interfaces.runtime` module is created to enable new runtimes creation. The `BaseModel` now supports the regular `keras.Model` usage, plus the new runtimes :
+    - [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) runtime : this allows to use a `TensorRT-LLM` engine as inference model
+    - [TensorRT](https://github.com/NVIDIA/TensorRT) runtime : this allows to use a `TensorRT` engine as inference model
+    - `tf.saved_model` runtime : this allows to use a saved model function as an inference model.
+- The `Whisper` model is now usable with `TensorRT-LLM`. A comprehensive guide to build and use it will be provided in the next update !
+- The `utils.threading.multiprocessing` has been replaced by a new `utils.threading.process` module ! This module automates the creation and communication between sub-processes.
+
+### Audio features
+
+- **[EXPERIMENTAL]** New `audio_stream`, `audio_player` and `audio_recorder` modules have been added to respectively play record audio. They both leverages the `pyaudio` library instead of `sounddevice`, and add useful features to both audio player and recorder !
+- The `audio_io` module has been modified to update the `play_audio`, and adds a new `record_audio` method.
+
+### Text features
+
+- A new `text.text_splitter` module has been created, dedicated to text splitting and chunking.
+- The `test_utils_text` has been improved
+- Minor bugs fixed in the `document_parser` module
+
 ## Update 01/11/2024
 
 ### Major update

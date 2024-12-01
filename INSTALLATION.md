@@ -25,6 +25,9 @@ sudo apt-get install -y openmpi-bin libopenmpi-dev git-lfs
 wget -O Miniforge3.sh https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh
 sudo bash Miniforge3.sh -b -p /usr/local/conda
 
+source /usr/local/conda/etc/profile.d/conda.sh
+source /usr/local/conda/etc/profile.d/mamba.sh
+
 mamba init
 ```
 
@@ -45,9 +48,6 @@ mamba deactivate
 
 ```bash
 pip install jupyter jupyterlab notebook
-
-// Install CUDA 12.4 and CuDNN 8.9
-mamba install -c nvidia cuda-toolkit=12.4 cudnn=8.9
 
 // Optional : if the project requires `TensorRT-LLM`
 pip install --extra-index-url https://pypi.nvidia.com tensorrt-llm
