@@ -13,12 +13,8 @@ The goal is to aggregate a wide range of Deep Learning topics in one place with 
 
 ## Happy New Year ! :yum:
 
-<audio controls>
-    happy_new_year_fr.mp3
-</audio>
-<audio controls>
-    happy_new_year_en.mp3
-</audio>
+[Bonne Année !](https://github.com/user-attachments/assets/09a943bc-3f1a-4a2c-9185-a195818f5c14)
+[Happy New Year !](https://github.com/user-attachments/assets/e5488782-2f89-4fa7-88e6-959dd58d5fbd)
 
 ## Covered topics
 
