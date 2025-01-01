@@ -4,6 +4,38 @@ This file describes the different changes performed at each update ! This will a
 
 Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
 
+## Update 01/01/2025 - Happy New Year ! :yum:
+
+<audio controls>
+    happy_new_year_fr.mp3
+</audio>
+<audio controls>
+    happy_new_year_en.mp3
+</audio>
+
+### General updates
+
+- **[EXPERIMENTAL]** The `models.nlu.TextGenerator` model now supports conversations ! This means that it gets as context the previous questions/answers
+- The `models.nlu.prompts` have been updated to both support `format` and `prefix`
+- The `TensorRTLLMRuntime` now supports `stop_words`
+
+- The `loggers.time_logging` has been refactored and optimized ! It now has a `Timer` that replaces the `with time_logg.timer` syntax
+```python
+@timer
+def foo():
+    # old syntax (still working, leveraging the new `Timer` class)
+    with time_logger.timer(...):
+        ... # do some operations
+    
+    # new syntax
+    with Timer(...) as t:
+        ... # do some operations
+    print(t.timers) # new feature returning a `dict` of all operations tracked
+```
+- The `text_splitter` module has been cleaned and optimized
+- New `python` and `java` files text extraction supported in the `document_parser.parse_document`
+- The `°` symbol is better expanded in `Text-To-Speech` text cleaning
+
 ## Update 01/12/2024
 
 ### Experimental features

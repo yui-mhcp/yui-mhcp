@@ -50,7 +50,7 @@ mamba deactivate
 pip install jupyter jupyterlab notebook
 
 // Optional : if the project requires `TensorRT-LLM`
-pip install --extra-index-url https://pypi.nvidia.com tensorrt-llm
+pip install --upgrade --extra-index-url https://pypi.nvidia.com tensorrt-llm
 
 pip install --upgrade tensorflow[and-cuda]
 ```
@@ -108,8 +108,8 @@ model     = AutoModelForCausalLM.from_pretrained(model_name, device_map = 'cuda'
 
 ```bash
 // Build the TRT-LLM checkpoint
-python convert_checkpoint.py --model_dir ~/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3.1-8B-Instruct/snapshots/<directory>/ --output_dir llama-3.1-8B-Instruct-checkpointt --dtype float16 --tp_size 1
+python convert_checkpoint.py --model_dir ~/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3.1-8B-Instruct/snapshots/<directory>/ --output_dir llama-3.1-8B-Instruct-checkpoint --dtype float16 --tp_size 1
 
 // Build the TRT-LLM engine
-trtllm-build --checkpoint_dir llama-3.1-8B-Instruct-checkpointt/ --output_dir llama-3.1-8B-Instruct-engine --gemm_plugin auto
+trtllm-build --checkpoint_dir llama-3.1-8B-Instruct-checkpoint/ --output_dir llama-3.1-8B-Instruct-engine --gemm_plugin auto
 ```
