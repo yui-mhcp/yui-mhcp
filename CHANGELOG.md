@@ -1,13 +1,34 @@
 # :yum: CHANGELOG :yum:
 
-This file describes the different changes performed at each update ! This will allow you to adapt your personnal code if something does not work anymore after an update.
+This file describes the different changes performed at each update ! This does not contain an exhaustive list of all modifications, as they are often minor, and do not impact the general function signatures. This file aims at giving a higher level overview of major updates or API / code structure modifications :smile:
 
-Note that this file does not contain an exhaustive list but should at least contain the major updates / modifications in the signature of functions.
+## Update 21/03/2025 - Spring update !
+
+## Update 21/03/2025 - Spring update!
+
+The project aims to be more community-driven, and has made some major modifications to its licensing and code structure to encourage future contributions! :yum:
+
+- **The entire codebase is now licensed under the AGPL v3.0**! :smile:
+- A new [CONTRIBUTING](CONTRIBUTING.md) file has been created to give guidelines for possible contributions :smile: 
+- All projects are currently being updated and cleaned to be more optimized and easier to use/understand. Some projects have not been updated yet but will be in the next update!
+- The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
+
+### Major updates
+
+- The `utils.keras_utils` has been renamed to `utils.keras`, and all operations are now classes instead of functions. This enable multiple features such as :
+    - Do not import `keras` at import time
+    - Build all operations in a lazy way (only when they are called)
+    - Optimize the `tensorflow` behavior when using the `tensorflow` backend
+    - Optimize the `numpy` checks to choose between `numpy` or `keras` operation
+- `Keras` is not imported by default, allowing you to use all the available features without `keras`! This is especially useful for using the `utils` module in bots/servers.
+- Some operations, such as the `convert_to_numpy` and `convert_to_tensor` have been optimized
+- A detailed conversion of the `Whisper` model to use [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) is provided in the associated [speech-to-text](https://github.com/yui-mhcp/speech_to_text) project, with a custom weights conversion script.
+- The `custom_architectures` directory has been renamed to `architectures`, and `custom_layers` to `architectures.layers`.
+- The `utils.text.TextEncoder` class has been renamed to `utils.text.Tokenizer` and properly updated in all classes. 
+- The `utils.text.document_parser` has been renamed to `utils.text.parsers` and cleaned to make it easier to extend. 
+- The `loggers.time_logging` features have been fully optimized to avoid unnecessary operations.
 
 ## Update 01/01/2025 - Happy New Year ! :yum:
-
-[Bonne Année !](https://github.com/user-attachments/assets/09a943bc-3f1a-4a2c-9185-a195818f5c14)
-[Happy New Year !](https://github.com/user-attachments/assets/e5488782-2f89-4fa7-88e6-959dd58d5fbd)
 
 ### General updates
 
