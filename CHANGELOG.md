@@ -2,16 +2,41 @@
 
 This file describes the different changes performed at each update ! This does not contain an exhaustive list of all modifications, as they are often minor, and do not impact the general function signatures. This file aims at giving a higher level overview of major updates or API / code structure modifications :smile:
 
-## Update 21/03/2025 - Spring update !
-
-## Update 21/03/2025 - Spring update!
-
 The project aims to be more community-driven, and has made some major modifications to its licensing and code structure to encourage future contributions! :yum:
 
 - **The entire codebase is now licensed under the AGPL v3.0**! :smile:
 - A new [CONTRIBUTING](CONTRIBUTING.md) file has been created to give guidelines for possible contributions :smile: 
 - All projects are currently being updated and cleaned to be more optimized and easier to use/understand. Some projects have not been updated yet but will be in the next update!
 - The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
+
+
+## Update 01/05/2025 - May update
+
+### Major updates
+
+- The [Language Models](https://github.com/yui-mhcp/language_models) project has been updated !
+    - The `predict` method has been removed to leverage the `BaseModel.predict` abstraction
+    - The `infer` method is now responsible for single-data inference, and performs all the operations (i.e., pre-processing, inference and post-processing), making the function more powerful, optimized and comprehensible !
+    - The French prompts have been updated, and are now located in the `models/nlu/prompts` directory. The English prompts will be updated in the next update to match the French ones
+    - The conversation support has been moved to the `models/nlu/conversations` directory, and is now activated by default (set `messages = []` to disable it)
+    - The [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) engine creation examples have been updated, and a new convenient `kv_cache_free_gpu_memory` has been added to support absolute (instead of relative) memory usage specification
+    - A new, experimental, tool mechanism has been added, and is located in the `models/nlu/tools` directory ! Instead of leveraging the default tool mechanism from the model (most of the time in `JSON` format), it handles tools as regular python code. The `tool_executor` module defines custom python script execution with additional security checks
+
+- The [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech) project has been updated !
+    - All classes (`Tacotron2`, `SV2TTSTacotron2` and `WaveGlow`) have been refactored, and their API may have changed
+    - The `predict` method has been optimized and updated to copy the generic signature defined by `BaseModel.predict`
+    - The `infer` method is now responsible for single-data inference, and performs all the operations (i.e., pre-processing, inference and post-processing), making the function more powerful, optimized and comprehensible !
+    - The `stream` method pre-compiles the models' `XLA` graphs to speeds up the first inferences
+
+### General updates
+
+- A new `utils/image/video` directory has been created to perform video I/O based on `ffmpeg`. This module is still experimental, and will be properly integrated with the `stream_camera` method in future releases.
+- New `Runtime`'s have been added to leverage `transformers` models or `TRT-LLM Bert` variants models. Usage examples will be provided in the next update
+- A new `ops.bincount` function has been created for 2D `ndarray` bincounts in a more optimized way than the `keras` version
+- A new experimental `stream_request_manager.py` module has been added to enable `LLM` stream control between processes
+
+
+## Update 21/03/2025 - Spring update!
 
 ### Major updates
 
