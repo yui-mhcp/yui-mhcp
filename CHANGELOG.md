@@ -10,6 +10,22 @@ The project aims to be more community-driven, and has made some major modificati
 - The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
 
 
+## Update 25/05/2025
+
+### Major updates
+
+- The [Embedding Models](https://github.com/yui-mhcp/encoders) project has been updated !
+    - The `VectorIndex` and `VectorDatabase` have been completely refactored to be more flexible, easy-to-use and optimized ! :smile:
+    - The `TextEncoder` is usable either with custom `keras3` architectures, either with the original `transformers` models (by setting the `runtime = 'hf'` argument in the constructor) (concrete examples will come in the next update)
+- The [Speech-To-Text](https://github.com/yui-mhcp/speech_to_text) weights convertion script for `Whisper` is now available for [TensorRT-LLM v0.19](https://github.com/NVIDIA/TensorRT-LLM)
+
+### General updates
+
+- The `Tacotron-2.infert` now correctly propagates kwargs to `clean_text` method.
+- The `TextGenerator.infer` method can dynamically execute python code during its inference with optimized stop-conditions when code is detected.
+- The `prefix` and `personnality_prompt` can now contains formatted strings (in `TextGenerator.infer`)
+
+
 ## Update 01/05/2025 - May update
 
 ### Major updates
