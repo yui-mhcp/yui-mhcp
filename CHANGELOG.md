@@ -9,6 +9,16 @@ The project aims to be more community-driven, and has made some major modificati
 - All projects are currently being updated and cleaned to be more optimized and easier to use/understand. Some projects have not been updated yet but will be in the next update!
 - The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
 
+## Update 21/07/2025
+
+### Major updates
+
+- The [TensorRT](https://github.com/NVIDIA/TensorRT) and [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) runtimes (module `utils.keras.runtimes`) have been cleaned and optimized !
+    - The `TensorRT` runtime now uses `pycuda` to allocate GPU placeholders for input/output instead of `torch`
+    - The `TensorRT-LLM` runtime now uses a `CustomModelRunnerCpp` instead of the regular one. The custom version adds the `request_ids` in the stream output to enable stable request cancellation. It also avoids the need to convert input tokens to `torch` tensors, that were re-converted to `list`, reducing computational overhead.
+- **[EXPERIMENTAL]** A new `utils.text.web` and `utils.text.parsers.html_parser` have been added to perform web scrapping. These are still experimental and will evolve in the next updates !
+- **[EXPERIMENTAL]** A new `models.nlu.workflows` module has been added to propose graph-based "agent" (workflows) creation ! :yum: Examples will be provided in the next update.
+- The `TextGenerator.infer` has been cleaned, optimized and documented
 
 ## Update 25/05/2025
 
