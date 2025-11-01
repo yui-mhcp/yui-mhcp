@@ -9,6 +9,16 @@ The project aims to be more community-driven, and has made some major modificati
 - All projects are currently being updated and cleaned to be more optimized and easier to use/understand. Some projects have not been updated yet but will be in the next update!
 - The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
 
+## Update 01/11/2025
+
+- This update provides an optimized and more flexible `LLM` pipeline by introducing `PromptFormatter` and `ConversationManager` classes.
+- Additionally, a `ConvItemSelector` abstraction is introduced to make it easy to integrate new messages/paragraphs selection strategy (like `RAG`) under maximum input tokens constraint
+- New `KerasIndex` and `TorchIndex` are provided for optimized `RAG` pipelines
+- New `paragraphs_processing.py` file is created to separate general text processing functions from paragraphs/documents processing
+- Minor bugs fixed in pdf parsing, `STT` and `TTS` projects
+
+The next update will mainly focus on the integration of multimodal support !
+
 ## Update 01/08/2025
 
 An example notebook is provided in the [Language Models](https://github.com/yui-mhcp/language_models) project to build and run workflows !
