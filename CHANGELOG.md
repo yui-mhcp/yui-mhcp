@@ -9,6 +9,35 @@ The project aims to be more community-driven, and has made some major modificati
 - All projects are currently being updated and cleaned to be more optimized and easier to use/understand. Some projects have not been updated yet but will be in the next update!
 - The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
 
+## Christmas update !
+
+### Major updates
+
+- The `Mistral 3.1` multimodal model is now supported in the [LLM](https://github.com/yui-mhcp/language_models) project ! :yum:
+    - The `TensorRTRuntime` and `CustomModelRunnerCpp` have been updated to support multimodal content efficiently
+    - The `Conversation` and `Message` dataclasses correctly support multimodal `content`
+    - The `PromptManager` supports multimodal content, and filters out multimodal content for non-multimodal models, allowing to reuse the same conversation with different models
+    - The `paragraphs_format` has been updated to support multimodal content, meaning that multimodal models can also access images within documents
+    - The `TextEncoder.predict` method supports multimodal content in documents (i.e., it is ignored for embedding creation but kept for future use)
+    - The `load_image` has now a `max_shape` argument, required for the `Mistral3` model
+    - Known limitation: the multimodal support is only tested using `Mistral3.1-Small` with the `TensorRT-LLM` runtime
+    - Known limitation: the message length estimation does not take into account multimodal content, leading to possible context length overflow
+- The `plot_utils` module has been cleaned and updated, with a new `example_plot` notebook in the [data processing](https://github.com/yui-mhcp/data_processing) project
+- The `utils.threading.{async_result, process}` are now compatible with `async`
+- New `ops.convert_{torch/tf}_to_{tf/torch}` methods have been added to convert `Tensor` from one framework to the other one without passing by `numpy`, avoiding CPU/GPU transfers !
+
+### Minor updates
+
+- All imports have been optimized to reduce the time to import `utils` module and sub modules (optimization is everywhere ! :yum: )
+- The `pdf_parser` module has been cleaned and optimized, and correctly supports image extraction
+- The `padding_multiple` of `Tacotron2` has been increased, reducing the number of XLA compilations at a marginal cost
+- A new **experimental** and naive `expand_acronyms` cleaner has been added
+
+### Bugs fixed
+
+- `ImportError` fixed in the `file_utils.download_file` method
+- Bug fixed at the creation of `CRNN` ocr model
+
 ## Update 01/11/2025
 
 - This update provides an optimized and more flexible `LLM` pipeline by introducing `PromptFormatter` and `ConversationManager` classes.
