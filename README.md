@@ -15,11 +15,11 @@ The goal is to aggregate a wide range of Deep Learning topics in one place with 
 
 Currently developed topics: 
 - [x] [Object/text detection](https://github.com/yui-mhcp/detection)
-- [ ] [Encoder networks](https://github.com/yui-mhcp/encoders) \*
-- [ ] [Natural Language Processing (NLP)](https://github.com/yui-mhcp/language_models) \*
+- [x] [Encoder networks](https://github.com/yui-mhcp/encoders)
+- [x] [Natural Language Processing (NLP)](https://github.com/yui-mhcp/language_models)
 - [x] [Optical Character Recognition (OCR)](https://github.com/yui-mhcp/ocr)
 - [x] [Speech-To-Text (STT)](https://github.com/yui-mhcp/speech_to_text)
-- [ ] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech) \*
+- [x] [Text-To-Speech (TTS)](https://github.com/yui-mhcp/text_to_speech)
 
 Additional utilities: 
 - [x] [Custom losses / metrics / callbacks](https://github.com/yui-mhcp/base_dl_project)
@@ -31,16 +31,14 @@ Additional utilities:
 - [x] [Multi-threading framework](https://github.com/yui-mhcp/data_processing)
 
 Practical use cases:
-- [ ] [Speaker Verification (SV)](https://github.com/yui-mhcp/encoders) \*
-- [ ] [Information Retrieval (IR)](https://github.com/yui-mhcp/encoders) \*
-- [ ] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text) \*
-- [ ] [Live transcription / subtitle generation](https://github.com/yui-mhcp/speech_to_text) \*
-- [ ] [Text-To-Speech logger](https://github.com/yui-mhcp/text_to_speech): `logging`-based logger that reads your logs with `TTS` models \*
+- [x] [Speaker Verification (SV)](https://github.com/yui-mhcp/encoders)
+- [x] [Information Retrieval (IR)](https://github.com/yui-mhcp/encoders)
+- [x] [Search text in audios / videos](https://github.com/yui-mhcp/speech_to_text)
+- [x] [Live transcription / subtitle generation](https://github.com/yui-mhcp/speech_to_text)
+- [x] [Text-To-Speech logger](https://github.com/yui-mhcp/text_to_speech): `logging`-based logger that reads your logs with `TTS` models
 - [x] [Optical Character Recognition (OCR)](https://github.com/yui-mhcp/ocr): this project allows to detect text in an image, and performs OCR on the detected text
 
 All topics are released in separate repositories to make it easier to learn / experiment with dedicated code and resources.
-
-\* These repositories/features are currently refactored, and are not working properly yet. They will be updated in the next release :smile:
 
 
 ## Contacts and licence
@@ -49,7 +47,7 @@ Contacts:
 - **Mail**: `yui-mhcp@tutanota.com`
 - **[Discord](https://discord.com)**: yui0732
 
-This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See the [LICENCE](LICENCE) file for details.
 
 This license allows you to use, modify, and distribute the code, as long as you include the original copyright and license notice in any copy of the software/source. Additionally, if you modify the code and distribute it, or run it on a server as a service, you must make your modified version available under the same license.
 

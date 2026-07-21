@@ -2,12 +2,21 @@
 
 This file describes the different changes performed at each update ! This does not contain an exhaustive list of all modifications, as they are often minor, and do not impact the general function signatures. This file aims at giving a higher level overview of major updates or API / code structure modifications :smile:
 
-The project aims to be more community-driven, and has made some major modifications to its licensing and code structure to encourage future contributions! :yum:
+## [v1.0.0] - 21/07/2026 - Major refactoring release ! :yum:
 
-- **The entire codebase is now licensed under the AGPL v3.0**! :smile:
-- A new [CONTRIBUTING](CONTRIBUTING.md) file has been created to give guidelines for possible contributions :smile: 
-- All projects are currently being updated and cleaned to be more optimized and easier to use/understand. Some projects have not been updated yet but will be in the next update!
-- The updated `README`s contain more relevant resources to learn different aspects of deep learning and their applications in various topics!
+First tagged release (`v1.0.0`) of the whole `yui-mhcp` ecosystem ! After a long refactoring, every project is now published as a consistent, installable package sharing the same `utils` / `loggers` socle and the same `BaseModel` core. Each repository keeps its own detailed changelog — this entry only summarizes the **global, cross-project structural changes** :smile:
+
+### Global structural changes
+
+- **Packaging** : every project now ships a `pyproject.toml` and is installed with `pip install -e .[<extras>]` instead of the old `requirements.txt`. The dependency extras (`audio`, `image`, `text`, `datasets`, `plot`, a keras backend via `tf` / `torch` / `keras`, and `dev`) are defined once in [data_processing](https://github.com/yui-mhcp/data_processing) ; each project promotes to *core* the stacks it always needs (e.g. audio + text for [TTS](https://github.com/yui-mhcp/text_to_speech) / [STT](https://github.com/yui-mhcp/speech_to_text), image for [detection](https://github.com/yui-mhcp/detection) / [OCR](https://github.com/yui-mhcp/ocr))
+- **No bundled backend** : the base install ships no keras backend — you pick one (`tf` / `torch`), and it is selected at runtime through the `KERAS_BACKEND` environment variable
+- **Shared `BaseModel` core** : the old `models/interfaces/base_*_model.py` classes are gone. `BaseModel` now lives in `models/core/base_model.py` and is composed from small, reusable **mixins** (`audio`, `image`, `text`, `classification`, `processing`, `checkpoint`, `training`), shared identically across every model repository
+- **Testing** : the test suites have migrated from `unittest` to `pytest`, mirroring the `utils` / `loggers` / model tree, with auto-skipped markers (`tensorflow`, `torch`, `keras`, `cv2`, `gpu`, `slow`, ...)
+- **Versioning** : each project is single-sourced from its `__version__.py` and tagged `v1.0.0`. The minimum supported Python is `3.10` for the pure-`numpy` [data_processing](https://github.com/yui-mhcp/data_processing) socle, and `3.12` for the model repositories (pinned by the deep-learning / TensorRT-LLM backend wheels)
+- **Accelerated inference** : the [TensorRT](https://github.com/NVIDIA/TensorRT) and [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM) runtimes are shared across projects. Where TRT-LLM is required ([STT](https://github.com/yui-mhcp/speech_to_text) + [LLM](https://github.com/yui-mhcp/language_models)) the core pins `numpy<2` ; `tensorrt_llm` is installed separately from the NVIDIA index (`< 1.3`) — see the [installation guide](INSTALLATION.md)
+- **Repository conventions** : all repositories now share a single, project-agnostic [installation guide](INSTALLATION.md), the default branch is unified on `main`, and the whole codebase is licensed under the **AGPL v3.0** with a shared [CONTRIBUTING](CONTRIBUTING.md) guide (+ CLA) to welcome community contributions :smile:
+
+The per-project details live in their own changelogs : [data_processing](https://github.com/yui-mhcp/data_processing/blob/main/CHANGELOG.md), [base_dl_project](https://github.com/yui-mhcp/base_dl_project/blob/main/CHANGELOG.md), [detection](https://github.com/yui-mhcp/detection/blob/main/CHANGELOG.md), [encoders](https://github.com/yui-mhcp/encoders/blob/main/CHANGELOG.md), [language_models](https://github.com/yui-mhcp/language_models/blob/main/CHANGELOG.md), [ocr](https://github.com/yui-mhcp/ocr/blob/main/CHANGELOG.md), [speech_to_text](https://github.com/yui-mhcp/speech_to_text/blob/main/CHANGELOG.md) and [text_to_speech](https://github.com/yui-mhcp/text_to_speech/blob/main/CHANGELOG.md).
 
 ## Christmas update !
 
@@ -342,7 +351,7 @@ Only the [data processing](https://github.com/yui-mhcp/data_processing) reposito
 ### Major updates
 
 - **The data processing module has been completely recoded to support the keras 3 multi-backend framework !**
-- The `utils/keras_utils` creates a convenient interface over keras-3 to add useful features for `tf.data` pipeline support in a backend-agnostic context (see [this notebook](https://github.com/yui-mhcp/data_processing/blob/master/example_custom_operations.ipynb) for more details)
+- The `utils/keras_utils` creates a convenient interface over keras-3 to add useful features for `tf.data` pipeline support in a backend-agnostic context (see [this notebook](https://github.com/yui-mhcp/data_processing/blob/main/example_custom_operations.ipynb) for more details)
 - The bounding box manipulation has been optimized and simplified
 - New unit testing methods have been added to better test the multi-backend support along with `tf.data` pipelines
 - The K-Means algorithm is now `XLA`-enabled
@@ -455,7 +464,7 @@ def get_filter(self):
 - The `execute_eagerly` is now usable on class methods
 - The `TextEncoder` directly implements the `multi_{encode / format / split / ...}` methods, which were originally implemented in the `BaseTextModel`
 - The new `copy_methods` decorator has enabled a big cleaning of the `BaseTextModel` by removing all *forwarding methods* (e.g., `encode_text` which is a direct call to `self.text_encoder.encode`)
-- A new context `timer` is added, enabling time tracking via a `with` statement, instead of the `{start / stop}_timer` (cf [this notebook](https://github.com/yui-mhcp/data_processing/blob/master/example_generic.ipynb) for an example)
+- A new context `timer` is added, enabling time tracking via a `with` statement, instead of the `{start / stop}_timer` (cf [this notebook](https://github.com/yui-mhcp/data_processing/blob/main/example_generic.ipynb) for an example)
 - The custom layers in the `custom_layers` module are not dynamically loaded, meaning that you do not have to modify the `__init__.py` file to export your custom layer ! The same behavior will be implemented in other modules (e.g., `custom_train_objects` and `models`)
 - A new `generation_utils` module has been created to handle both `RNN` inference and `Transformers` inference at once with a unified and optimized generation loop ! Some features for the `Transformers` are not supported yet (notably returning the decoder self-attention), as the dimensions change accross steps. This will be solved in future updates, but you can go back to the old generation function if needed (by setting `from custom_architecture.transformers_arch.generation_utils import infer` instead in the `text_transformer_arch.py` file).
 
@@ -480,7 +489,7 @@ These issues will be solved in the next (1st january) update :smile:
 ### Plot features
 
 - The `violinplot` and the `boxplot` now support multi-color boxes / violins
-- The `bar` plot supports grouped bars (i.e. multiple bars per feature) ([see here](https://github.com/yui-mhcp/data_processing/blob/master/example_generic.ipynb) for an example)
+- The `bar` plot supports grouped bars (i.e. multiple bars per feature) ([see here](https://github.com/yui-mhcp/data_processing/blob/main/example_generic.ipynb) for an example)
 
 
 ## Update 01/11/2023
