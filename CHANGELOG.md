@@ -2,6 +2,41 @@
 
 This file describes the different changes performed at each update ! This does not contain an exhaustive list of all modifications, as they are often minor, and do not impact the general function signatures. This file aims at giving a higher level overview of major updates or API / code structure modifications :smile:
 
+## [v1.1.0] - 01/11/2026 - November update ! :yum:
+
+Every project is bumped to `v1.1.0` ! This release brings the TensorRT-LLM `LLM API` to the whole ecosystem, a working `YOLO` training, `transformers 5` support and a major update of the [LLM](https://github.com/yui-mhcp/language_models) project. As for `v1.0.0`, each repository keeps its own detailed changelog — this entry summarizes the main changes :smile:
+
+### Major updates
+
+- **Data augmentation** : the new `utils.image.image_augmentation` module ([data_processing](https://github.com/yui-mhcp/data_processing)) is now used by the `ImageMixin` ([base_dl_project](https://github.com/yui-mhcp/base_dl_project)) : the image models training works correctly, and the `example_yolo` notebook of the [detection](https://github.com/yui-mhcp/detection) project is functional end-to-end ! **[BREAKING CHANGE]** the `YOLO` training target encoding has been refactored
+- **Tokenizer** : the `Tokenizer` correctly supports `transformers 5`, and has been heavily optimized (incremental `decode_stream`, no more network requests for cached tokenizers)
+- **TensorRT-LLM `LLM API`** : the new `TensorRTLLMAPIRuntime` (`runtime = 'trt_llm_api'`, tested with `tensorrt_llm 1.3.0rc29`) loads the `huggingface` checkpoints **directly**, without conversion nor engine build step. It is used by the [LLM](https://github.com/yui-mhcp/language_models) and [STT](https://github.com/yui-mhcp/speech_to_text) (`Whisper`) projects, and (**[EXPERIMENTAL]**) by the [encoders](https://github.com/yui-mhcp/encoders) text encoders. The `numpy < 2` pin has been removed, and the [installation guide](INSTALLATION.md) has been updated accordingly
+- **Storage** : new append-only `JSONLDatabase`, persisted as JSON-lines
+- **Language models** ([language_models](https://github.com/yui-mhcp/language_models)) :
+    - New `Qwen3_5` model for the `Qwen 3.5` - `Qwen 3.8` multimodal reasoning models (reasoning effort + thinking budget)
+    - Improved conversation management : `Conversation > Session > Message`, with on-disk persistence
+    - Reworked tool calling : native tools (chat template) **and** python code, executed by a new strict AST-based interpreter (`models/nlu/tools/interpreter/`)
+    - **[EXPERIMENTAL]** New memory mechanisms (`models/nlu/memory/`) and evaluation harness with LLM judges (`models/nlu/evaluation/`)
+    - New `example_conversations`, `example_rag` and `example_function_calling` notebooks
+    - **[BREAKING CHANGE]** `Mistral3` has been removed (multimodal support through `Qwen3_5`), and several modules have moved (`conv_item_selectors` -> `context/selectors`, `tool_executor` -> `tools/interpreter`, `streaming` -> `request_controller`)
+
+### Minor updates
+
+- **Testing** : many new unit tests (databases, image augmentation, datasets, runtimes, tokenizer streaming, parsers, and a complete `models.nlu` suite running without GPU)
+- **keras 3.16** compatibility of the shared `architectures` (RNN masking, `keras` mask API)
+- New `utils.text.lexical` (n-grams lexical search) and `utils.translation` (lazy multilingual messages) modules, and VOC-formatted detection datasets
+- **[EXPERIMENTAL]** New `RegionTracker` for the streaming de-duplication of the [OCR](https://github.com/yui-mhcp/ocr) project (`stream(track_regions = True)`)
+- The [TTS](https://github.com/yui-mhcp/text_to_speech), [OCR](https://github.com/yui-mhcp/ocr) and [encoders](https://github.com/yui-mhcp/encoders) projects have been synced with the shared foundation, without major changes
+- Every `README.md` now links its own `CHANGELOG.md` in addition to this central one
+
+### Bugs fixed
+
+- `pip install -e .` works again with the recent `setuptools` versions in every project : the `License ::` classifier, superseded by the PEP 639 `license` expression (`AGPL-3.0-or-later`), has been removed from the `pyproject.toml`
+- The runtimes engines cache does not share an engine between two runtimes loading the same checkpoint (e.g., `hf` and `trt_llm_api`)
+- Minor fixes across the shared utilities (`json` loading of `NaN` / `Infinity`, pdf parsing, audio streaming, ...)
+
+The per-project details live in their own changelogs : [data_processing](https://github.com/yui-mhcp/data_processing/blob/main/CHANGELOG.md), [base_dl_project](https://github.com/yui-mhcp/base_dl_project/blob/main/CHANGELOG.md), [detection](https://github.com/yui-mhcp/detection/blob/main/CHANGELOG.md), [encoders](https://github.com/yui-mhcp/encoders/blob/main/CHANGELOG.md), [language_models](https://github.com/yui-mhcp/language_models/blob/main/CHANGELOG.md), [ocr](https://github.com/yui-mhcp/ocr/blob/main/CHANGELOG.md), [speech_to_text](https://github.com/yui-mhcp/speech_to_text/blob/main/CHANGELOG.md) and [text_to_speech](https://github.com/yui-mhcp/text_to_speech/blob/main/CHANGELOG.md).
+
 ## [v1.0.0] - 21/07/2026 - Major refactoring release ! :yum:
 
 First tagged release (`v1.0.0`) of the whole `yui-mhcp` ecosystem ! After a long refactoring, every project is now published as a consistent, installable package sharing the same `utils` / `loggers` socle and the same `BaseModel` core. Each repository keeps its own detailed changelog — this entry only summarizes the **global, cross-project structural changes** :smile:
